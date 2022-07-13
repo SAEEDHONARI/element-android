@@ -165,12 +165,6 @@ class VectorApplication :
             doNotShowDisclaimerDialog(this)
         }
 
-        if (authenticationService.hasAuthenticatedSessions() && !activeSessionHolder.hasActiveSession()) {
-            val lastAuthenticatedSession = authenticationService.getLastAuthenticatedSession()!!
-            activeSessionHolder.setActiveSession(lastAuthenticatedSession)
-            lastAuthenticatedSession.configureAndStart(applicationContext, startSyncing = false)
-        }
-
         ProcessLifecycleOwner.get().lifecycle.addObserver(startSyncOnFirstStart)
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
@@ -205,10 +199,12 @@ class VectorApplication :
         Mapbox.getInstance(this)
     }
 
+    // TODO This will not work, handle this case.
+    // authenticationService.getLastAuthenticatedSession() will now return null
     private val startSyncOnFirstStart = object : DefaultLifecycleObserver {
         override fun onStart(owner: LifecycleOwner) {
             Timber.i("App process started")
-            authenticationService.getLastAuthenticatedSession()?.startSyncing(appContext)
+            // TODO authenticationService.getLastAuthenticatedSession()?.startSyncing(appContext)
             ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
         }
     }

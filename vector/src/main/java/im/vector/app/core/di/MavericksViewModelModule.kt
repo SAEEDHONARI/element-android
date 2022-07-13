@@ -20,6 +20,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.multibindings.IntoMap
+import im.vector.app.features.MainViewModel
 import im.vector.app.features.analytics.accountdata.AnalyticsAccountDataViewModel
 import im.vector.app.features.analytics.ui.consent.AnalyticsConsentViewModel
 import im.vector.app.features.auth.ReAuthViewModel
@@ -606,4 +607,9 @@ interface MavericksViewModelModule {
     @IntoMap
     @MavericksViewModelKey(LocationLiveMapViewModel::class)
     fun locationLiveMapViewModelFactory(factory: LocationLiveMapViewModel.Factory): MavericksAssistedViewModelFactory<*, *>
+
+    @Binds
+    @IntoMap
+    @MavericksViewModelKey(MainViewModel::class)
+    fun mainViewModelFactory(factory: MainViewModel.Factory): MavericksAssistedViewModelFactory<*, *>
 }
