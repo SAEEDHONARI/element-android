@@ -140,7 +140,6 @@ class MainActivity : VectorBaseActivity<ActivityMainBinding>(), UnlockedActivity
     }
 
     private fun renderState(state: StartAppViewState) {
-        Timber.e("state is $state")
         if (state.duration > 0) {
             views.status.setText(R.string.updating_your_data)
         }
