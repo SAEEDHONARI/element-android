@@ -163,8 +163,6 @@ class VectorApplication :
             doNotShowDisclaimerDialog(this)
         }
 
-        ProcessLifecycleOwner.get().lifecycle.addObserver(startSyncOnFirstStart)
-
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
                 Timber.i("App entered foreground")
@@ -195,16 +193,6 @@ class VectorApplication :
 
         // Initialize Mapbox before inflating mapViews
         Mapbox.getInstance(this)
-    }
-
-    // TODO This will not work, handle this case.
-    // authenticationService.getLastAuthenticatedSession() will now return null
-    private val startSyncOnFirstStart = object : DefaultLifecycleObserver {
-        override fun onStart(owner: LifecycleOwner) {
-            Timber.i("App process started")
-            // TODO authenticationService.getLastAuthenticatedSession()?.startSyncing(appContext)
-            ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
-        }
     }
 
     private fun enableStrictModeIfNeeded() {
