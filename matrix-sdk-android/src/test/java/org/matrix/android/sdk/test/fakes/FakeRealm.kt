@@ -97,3 +97,11 @@ inline fun <reified T : RealmModel> RealmQuery<T>.givenIsNotNull(
     every { isNotNull(fieldName) } returns this
     return this
 }
+
+inline fun <reified T : RealmModel> RealmQuery<T>.givenLessThan(
+        fieldName: String,
+        value: Long
+): RealmQuery<T> {
+    every { lessThan(fieldName, value) } returns this
+    return this
+}
